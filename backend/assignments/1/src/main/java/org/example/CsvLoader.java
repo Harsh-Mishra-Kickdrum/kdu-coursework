@@ -22,30 +22,33 @@ public class CsvLoader {
      */
     public static List<Coin> loadCoins(String filePath) {
         List<Coin> coins = new ArrayList<>();
-
+        System.out.println(CsvLoader.class.getClassLoader().getResourceAsStream(filePath));
         try (InputStream inputStream = CsvLoader.class.getClassLoader().getResourceAsStream(filePath)) {
             if (inputStream != null) {
                 CSVReader reader = new CSVReader(new InputStreamReader(inputStream));
-
                 List<String[]> data = reader.readAll();
 
                 for (int i = 1; i < data.size(); i++) {
                     String[] coinData = data.get(i);
 
                     if (coinData.length >= 4) {
-                        String name = coinData[0];
-                        String code = coinData[1];
-                        double price = Double.parseDouble(coinData[2]);
-                        int volume = Integer.parseInt(coinData[3]);
+                        try {
+                            String name = coinData[0];
+                            String code = coinData[1];
+                            double price = Double.parseDouble(coinData[2]);
+                            int volume = Integer.parseInt(coinData[3]);
 
-                        Coin coin = new Coin(name, code, price, volume);
-                        coins.add(coin);
+                            Coin coin = new Coin(name, code, price, volume);
+                            coins.add(coin);
+                        } catch (NumberFormatException e) {
+                            Logging.getMsg().error("Error parsing data for coin at index {}: {}", i, e.getMessage());
+                        }
                     }
                 }
             } else {
                 Logging.getMsg().error("Input stream is null for file: {}", filePath);
             }
-        } catch (IOException | CsvException | NumberFormatException e) {
+        } catch (IOException | CsvException e) {
             Logging.getMsg().error("Error loading coins from CSV file: {}", filePath, e);
         }
 

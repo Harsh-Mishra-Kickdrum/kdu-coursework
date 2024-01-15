@@ -1,4 +1,5 @@
 package org.example;
+
 /**
  * Represents a transaction with attributes for type, associated coin, quantity, and wallet address.
  */
@@ -63,5 +64,20 @@ public class Transaction {
      */
     public String getWalletAddress() {
         return walletAddress;
+    }
+
+    /**
+     * Overrides the default toString method to provide a string representation of the transaction.
+     *
+     * @return A string representation of the transaction.
+     */
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "type=" + type +
+                ", coin=" + (coin != null ? coin.getName() : "null") +
+                ", quantity=" + quantity +
+                ", walletAddress='" + walletAddress + '\'' +
+                '}';
     }
 }

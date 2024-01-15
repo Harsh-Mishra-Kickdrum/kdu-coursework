@@ -1,9 +1,5 @@
 package org.example;
 
-import org.example.Coin;
-import org.example.Logging;
-import org.example.Trader;
-
 import java.security.SecureRandom;
 import java.util.concurrent.CountDownLatch;
 
@@ -14,26 +10,20 @@ import java.util.concurrent.CountDownLatch;
 public class ExecuteTransaction implements Runnable {
 
     private final Trader trader;
-    private final Coin coin;
+    private final Transaction transaction;  // Updated to use Transaction class
     private final CountDownLatch latch;
-    private final int quantity;
-    private final String transactionType;
 
     /**
      * Initializes the ExecuteTransaction with required data.
      *
-     * @param trader          The trader involved in the transaction.
-     * @param coin            The coin related to the transaction.
-     * @param latch           The CountDownLatch for synchronization.
-     * @param quantity        The quantity of the coin involved.
-     * @param transactionType The type of transaction (BUY, SELL, UPDATE_PRICE, ADD_VOLUME).
+     * @param trader      The trader involved in the transaction.
+     * @param transaction The transaction object.
+     * @param latch       The CountDownLatch for synchronization.
      */
-    public ExecuteTransaction(Trader trader, Coin coin, CountDownLatch latch, int quantity, String transactionType) {
+    public ExecuteTransaction(Trader trader, Transaction transaction, CountDownLatch latch) {
         this.trader = trader;
-        this.coin = coin;
+        this.transaction = transaction;
         this.latch = latch;
-        this.quantity = quantity;
-        this.transactionType = transactionType;
     }
 
     /**
@@ -45,21 +35,21 @@ public class ExecuteTransaction implements Runnable {
             // Your transaction processing logic goes here
             String transactionHash = getBlockHash(); // Generate a random transaction hash
 
-            switch (transactionType) {
-                case "BUY":
-                    executeBuyTransaction(transactionHash);
+            switch (transaction.getType()) {
+                case BUY:
+                    executeBuyTransaction(transaction, transactionHash);
                     break;
-                case "SELL":
-                    executeSellTransaction(transactionHash);
+                case SELL:
+                    executeSellTransaction(transaction, transactionHash);
                     break;
-                case "UPDATE_PRICE":
-                    executeUpdatePriceTransaction(transactionHash);
+                case UPDATE_PRICE:
+                    executeUpdatePriceTransaction(transaction, transactionHash);
                     break;
-                case "ADD_VOLUME":
-                    executeAddVolumeTransaction(transactionHash);
+                case ADD_VOLUME:
+                    executeAddVolumeTransaction(transaction, transactionHash);
                     break;
                 default:
-                    Logging.getMsg().error("Unknown transaction type: {}", transactionType);
+                    Logging.getMsg().error("Unknown transaction type: {}", transaction.getType());
             }
         } finally {
             // Count down the latch to signal completion
@@ -67,41 +57,44 @@ public class ExecuteTransaction implements Runnable {
         }
     }
 
-    private void executeBuyTransaction(String transactionHash) {
-        if (trader.getBalance() >= coin.getCurrentPrice() * quantity) {
-            trader.addToPortfolio(coin, quantity);
-            trader.deductFromBalance(coin.getCurrentPrice() * quantity);
+    private void executeBuyTransaction(Transaction transaction, String transactionHash) {
+        if (trader.getBalance() >= transaction.getCoin().getCurrentPrice() * transaction.getQuantity()) {
+            trader.addToPortfolio(transaction.getCoin(), transaction.getQuantity());
+            trader.deductFromBalance(transaction.getCoin().getCurrentPrice() * transaction.getQuantity());
             Logging.getMsg().info("BUY: {} units of {} by {} for ${} Transaction Hash: {}",
-                    quantity, coin.getName(), trader.getName(), coin.getCurrentPrice() * quantity, transactionHash);
+                    transaction.getQuantity(), transaction.getCoin().getName(),
+                    trader.getName(), transaction.getCoin().getCurrentPrice() * transaction.getQuantity(), transactionHash);
         } else {
             Logging.getMsg().warn("Insufficient funds for the BUY transaction. Transaction Hash: {}", transactionHash);
         }
     }
 
-    private void executeSellTransaction(String transactionHash) {
-        if (trader.getPortfolio().containsKey(coin) && trader.getPortfolio().get(coin) >= quantity) {
-            trader.removeFromPortfolio(coin, quantity);
-            trader.addToBalance(coin.getCurrentPrice() * quantity);
+    private void executeSellTransaction(Transaction transaction, String transactionHash) {
+        if (trader.getPortfolio().containsKey(transaction.getCoin())
+                && trader.getPortfolio().get(transaction.getCoin()) >= transaction.getQuantity()) {
+            trader.removeFromPortfolio(transaction.getCoin(), transaction.getQuantity());
+            trader.addToBalance(transaction.getCoin().getCurrentPrice() * transaction.getQuantity());
             Logging.getMsg().info("SELL: {} units of {} by {} for ${} Transaction Hash: {}",
-                    quantity, coin.getName(), trader.getName(), coin.getCurrentPrice() * quantity, transactionHash);
+                    transaction.getQuantity(), transaction.getCoin().getName(),
+                    trader.getName(), transaction.getCoin().getCurrentPrice() * transaction.getQuantity(), transactionHash);
         } else {
             Logging.getMsg().warn("Insufficient quantity of {} for the SELL transaction. Transaction Hash: {}",
-                    coin.getName(), transactionHash);
+                    transaction.getCoin().getName(), transactionHash);
         }
     }
 
-    private void executeUpdatePriceTransaction(String transactionHash) {
-        double newPrice = coin.getCurrentPrice() * 1.05; // Increase price by 5%
-        coin.setCurrentPrice(newPrice);
+    private void executeUpdatePriceTransaction(Transaction transaction, String transactionHash) {
+        double newPrice = transaction.getCoin().getCurrentPrice() * 1.05; // Increase price by 5%
+        transaction.getCoin().setCurrentPrice(newPrice);
         Logging.getMsg().info("UPDATE_PRICE: Set new price for {} to ${} Transaction Hash: {}",
-                coin.getName(), newPrice, transactionHash);
+                transaction.getCoin().getName(), newPrice, transactionHash);
     }
 
-    private void executeAddVolumeTransaction(String transactionHash) {
+    private void executeAddVolumeTransaction(Transaction transaction, String transactionHash) {
         int additionalVolume = 100;
-        coin.addVolume(additionalVolume);
+        transaction.getCoin().addVolume(additionalVolume);
         Logging.getMsg().info("ADD_VOLUME: Added {} units of volume to {} Transaction Hash: {}",
-                additionalVolume, coin.getName(), transactionHash);
+                additionalVolume, transaction.getCoin().getName(), transactionHash);
     }
 
     /**

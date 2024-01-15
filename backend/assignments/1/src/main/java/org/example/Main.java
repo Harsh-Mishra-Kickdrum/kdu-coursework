@@ -3,6 +3,7 @@ package org.example;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -31,7 +32,7 @@ public class Main {
         loadCsvData();
 
         // Step 2: Loading JSON transaction data into memory
-        JsonNode jsonTransactions = loadJsonTransactions("src/main/resources/test_transaction.json");
+        JsonNode jsonTransactions = loadJsonTransactions("test_transaction.json");
 
         // Step 3: Execute transactions using a thread pool
         assert jsonTransactions != null;
@@ -44,15 +45,9 @@ public class Main {
     /**
      * Loads coin and trader data from CSV files into memory.
      */
-    /**
-     * Loads coin and trader data from CSV files into memory.
-     */
     private static void loadCsvData() {
-        String coinsFilePath = "src/main/resources/coins.csv";
-        String tradersFilePath = "src/main/resources/traders.csv";
-
-        System.out.println("Coins file path: " + new File(coinsFilePath).getAbsolutePath());
-        System.out.println("Traders file path: " + new File(tradersFilePath).getAbsolutePath());
+        String coinsFilePath = "coins.csv";
+        String tradersFilePath = "traders.csv";
 
         try {
             coins = CsvLoader.loadCoins(coinsFilePath);
@@ -60,27 +55,29 @@ public class Main {
 
             if (coins == null || traders == null) {
                 Logging.getMsg().error("Error loading CSV files. Make sure the file paths are correct.");
+            } else {
+                Logging.getMsg().info("CSV files loaded successfully.");
             }
-        } catch (NullPointerException e) {
-            Logging.getMsg().error("Error loading CSV files. Make sure the file paths are correct.", e);
+        } catch (Exception e) {
+            Logging.getMsg().error("Error loading CSV files. Check the file paths and format.", e);
         }
     }
-
-
 
     /**
      * Loads JSON transaction data from a file and returns the JsonNode.
      *
      * @return The JsonNode representing the loaded transactions.
      */
-    private static JsonNode loadJsonTransactions(String filePath) {
+    private static JsonNode     loadJsonTransactions(String filePath) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             File file = new File(filePath);
+            System.out.println("Current Working Directory: " + System.getProperty("user.dir"));
             if (file.exists()) {
+                Logging.getMsg().info("JSON transactions file found at: {}", file.getAbsolutePath());
                 return objectMapper.readTree(file);
             } else {
-                Logging.getMsg().error("JSON transactions file not found: {}", filePath);
+                Logging.getMsg().error("JSON transactions file not found: {}", file.getAbsolutePath());
                 return null;
             }
         } catch (IOException e) {
@@ -88,8 +85,6 @@ public class Main {
             return null;
         }
     }
-
-
     /**
      * Executes transactions using a thread pool.
      *
@@ -97,19 +92,21 @@ public class Main {
      */
     private static void executeTransactions(JsonNode jsonTransactions) {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
-        CountDownLatch latch = new CountDownLatch(jsonTransactions.size());  // Add this line
+        CountDownLatch latch = new CountDownLatch(jsonTransactions.size());
 
         for (JsonNode transactionNode : jsonTransactions) {
             String transactionType = transactionNode.get("type").asText();
             Trader trader = getTrader(transactionNode);
+            Transaction.TransactionType enumTransactionType = Transaction.TransactionType.valueOf(transactionType);
             Coin coin = getCoin(transactionNode);
 
-            ExecuteTransaction executeTransaction = new ExecuteTransaction(trader, coin, latch, 0, transactionType);  // Update this line
+            Transaction transaction = new Transaction(enumTransactionType, coin, 0, trader.getWalletAddress());
+            ExecuteTransaction executeTransaction = new ExecuteTransaction(trader, transaction, latch);
             executorService.submit(executeTransaction);
         }
 
         try {
-            latch.await();  // Add this line to wait for all transactions to finish
+            latch.await();  // wait for all transactions to complete
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             Logging.getMsg().error("Error waiting for transactions to finish", e);
@@ -248,12 +245,25 @@ public class Main {
      * @param transactionNode The JSON node representing the transaction.
      * @return The associated coin.
      */
+    /**
+     * Retrieves the coin associated with a transaction.
+     *
+     * @param transactionNode The JSON node representing the transaction.
+     * @return The associated coin.
+     */
     private static Coin getCoin(JsonNode transactionNode) {
-        String coinName = transactionNode.get("coin").asText();
-        return coins.stream()
-                .filter(coin -> coin.getName().equals(coinName))
-                .findFirst()
-                .orElse(null);
+        JsonNode coinNode = transactionNode.get("coin");
+
+        if (coinNode != null && coinNode.isTextual()) {
+            String coinName = coinNode.asText();
+            return coins.stream()
+                    .filter(coin -> coin.getName().equals(coinName))
+                    .findFirst()
+                    .orElse(null);
+        } else {
+            Logging.getMsg().error("Invalid or missing 'coin' field in transaction: {}", transactionNode);
+            return null;
+        }
     }
 
     /**
@@ -263,7 +273,15 @@ public class Main {
      * @return The associated trader.
      */
     private static Trader getTrader(JsonNode transactionNode) {
-        String traderName = transactionNode.get("trader").asText();
+        JsonNode traderNode = transactionNode.path("data").path("wallet_address");
+        String traderName = traderNode.asText();
+
+        // If the trader name is empty, log an error and return null
+        if (traderName.isEmpty()) {
+            Logging.getMsg().error("Empty or missing trader name in transaction: {}", transactionNode);
+            return null;
+        }
+
         return traders.stream()
                 .filter(trader -> trader.getName().equals(traderName))
                 .findFirst()
