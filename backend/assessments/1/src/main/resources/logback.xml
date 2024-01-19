@@ -1,0 +1,19 @@
+<!--for having different colors for different level of logs:
+
+%highlight(...) is used to wrap the entire log message, and it will apply different colors based on the log level.
+The default color scheme is: blue for TRACE, green for DEBUG, yellow for INFO, magenta for WARN, and red for ERROR.
+-->
+<configuration>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logDetails.log</file> <!--appending the log details in the file-->
+        <append>true</append>
+        <encoder>
+            <!-- Use the colored pattern for console output -->
+            <pattern>%highlight(%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n)</pattern>
+        </encoder>
+    </appender>
+    <root level="debug">
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
