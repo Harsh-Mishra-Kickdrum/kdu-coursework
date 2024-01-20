@@ -1,0 +1,25 @@
+<!--for having different colors for different level of logs:
+
+%highlight(...) is used to wrap the entire log message, and it will apply different colors based on the log level.
+The default color scheme is: blue for TRACE, green for DEBUG, yellow for INFO, magenta for WARN, and red for ERROR.
+-->
+<configuration>
+    <property name="CLR_ERROR" value="31"/> <!-- red -->
+    <property name="CLR_WARN" value="33"/>  <!-- yellow -->
+    <property name="CLR_INFO" value="0"/>   <!-- normal -->
+    <property name="CLR_DEBUG" value="37"/> <!-- white -->
+    <property name="CLR_TRACE" value="30"/> <!-- black -->
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>src/main/resources/logDetails.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level){${'\\033[' + "${'CLR_' + level}" + 'm'}} %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>
+
