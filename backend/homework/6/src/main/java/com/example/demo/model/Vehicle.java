@@ -44,4 +44,14 @@ public class Vehicle {
     public double getPrice() {
         return price;
     }
+
+      // Override toString method to print details
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "tyre=" + tyre +
+                ", speaker=" + speaker +
+                ", price=" + price +
+                '}';
+    }
 }
