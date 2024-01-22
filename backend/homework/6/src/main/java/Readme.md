@@ -94,5 +94,6 @@ The application will generate a list of vehicles with random tyres and speakers,
 - Make sure to check the logging output for details during application startup and execution.
 
 ## Author : 
-- HARSH MISHRA
+
+- HARSH  MISHRA
 
