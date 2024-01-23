@@ -1,0 +1,9 @@
+com/example/demo/model/Speaker.class
+com/example/demo/config/Application.class
+com/example/demo/logging/Logging.class
+com/example/demo/model/Vehicle.class
+com/example/demo/service/VehicleService.class
+com/example/demo/service/TyreService.class
+com/example/demo/config/AppConfig.class
+com/example/demo/model/Tyre.class
+com/example/demo/service/SpeakerService.class
