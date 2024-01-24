@@ -47,7 +47,7 @@ public class VehicleServiceImp implements VehicleService {
 
         BeanUtils.copyProperties(request, existingVehicle, "id");
 
-        Vehicle updatedVehicle = vehicleRepository.save(existingVehicle);
+        @Nullable Vehicle updatedVehicle = vehicleRepository.save(existingVehicle);
         return convertToResponse(updatedVehicle);
     }
 
@@ -58,9 +58,11 @@ public class VehicleServiceImp implements VehicleService {
 
     @Override
     public List<VehicleResponse> getAllVehicles() {
-        List<Vehicle> vehicles = vehicleRepository.findAll();
-        return vehicles.stream().map(this::convertToResponse).collect(Collectors.toList());
+        return vehicleRepository.findAll().stream()
+                .map(this::convertToResponse)
+                .toList();
     }
+
 
     private Vehicle convertToEntity(AddVehicleRequest request) {
         Vehicle vehicle = new Vehicle();

@@ -52,14 +52,16 @@ public class VehicleRepository {
      * @return the list of all vehicles
      */
     public List<Vehicle> findAll() {
-        return vehicleMap.values().stream().collect(Collectors.toList());
+        return vehicleMap.values().stream().toList();
     }
+
 
     public Vehicle findMostExpensive() {
         return vehicleMap.values().stream()
                 .max(Comparator.comparing(Vehicle::getPrice))
                 .orElse(null);
     }
+
 
     public Vehicle findLeastExpensive() {
         return vehicleMap.values().stream()
