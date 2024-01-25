@@ -3,6 +3,17 @@
 This project is a Spring-based application that implements CRUD APIs for managing vehicles in a factory's inventory. 
 The application allows users to add, get, update, and delete vehicles, as well as retrieve the most and least expensive vehicles.
 
+
+
+## Table of Contents
+- [Directory Structure](#directory-structure)
+- [Build Instructions](#build-instructions)
+- [API Paths](#api-paths)
+- [Implementation Details](#implementation-details)
+- [Testing](#testing)
+- [Author](#author)
+
+
 ## Directory Structure
 
 - .
