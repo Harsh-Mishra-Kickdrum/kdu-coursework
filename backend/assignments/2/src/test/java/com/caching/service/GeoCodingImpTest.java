@@ -23,7 +23,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@SpringBootTest(classes = GeocodingApplication.class)
 @AutoConfigureMockMvc
 @ComponentScan(basePackages = "com.caching")
 public class GeoCodingImpTest {
