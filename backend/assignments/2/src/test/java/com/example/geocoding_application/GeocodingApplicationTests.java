@@ -1,4 +1,4 @@
-package com.caching;
+package com.example.geocoding_application;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

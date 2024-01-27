@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -21,54 +20,41 @@ import java.nio.charset.StandardCharsets;
 public class ExternalAPIUtility {
 
     private final Logger logger = LoggerFactory.getLogger(ExternalAPIUtility.class);
-    private String geoapifyApiKey;
-
-    @Value("${geoapify.api.key}")
-    public void setGeoapifyApiKey(String apiKey) {
-        this.geoapifyApiKey = apiKey;
-    }
+    private  static final  String POSITIONSTACKAPIKEY = "582cf29cc9f407f13feac454e19f3062";
 
     public GeocodeResponse getGeocode(String address) {
         try {
             String encodedAddress = java.net.URLEncoder.encode(address, StandardCharsets.UTF_8.toString());
-            URL url = new URL("https://api.geoapify.com/v1/geocode/search?text=" + encodedAddress + "&apiKey=" + geoapifyApiKey);
+            URL url = new URL("http://api.positionstack.com/v1/forward?access_key=" + POSITIONSTACKAPIKEY + "&query=" + encodedAddress);
             String response = sendRequest(url);
 
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response);
-            if (root.path("features").size() == 0) {
-                throw new CustomException("No results found for the given address.");
-            }
-
-            JsonNode firstFeature = root.path("features").path(0);
-            double latitude = firstFeature.path("geometry").path("coordinates").path(1).asDouble();
-            double longitude = firstFeature.path("geometry").path("coordinates").path(0).asDouble();
-            String formattedAddress = firstFeature.path("properties").path("formatted").asText();
+            JsonNode firstResult = root.path("data").path(0);
+            double latitude = firstResult.path("latitude").asDouble();
+            double longitude = firstResult.path("longitude").asDouble();
+            String formattedAddress = firstResult.path("label").asText();
 
             return new GeocodeResponse(formattedAddress, latitude, longitude);
         } catch (IOException e) {
-            logger.error("Error occurred during geocoding: {}", e.getMessage());
+            logger.error("Error occurred during geocoding");
             throw new CustomException("Geocoding failed: " + e.getMessage());
         }
     }
 
     public ReverseGeocodeResponse getReverseGeocode(double latitude, double longitude) {
         try {
-            URL url = new URL("https://api.geoapify.com/v1/geocode/reverse?lat=" + latitude + "&lon=" + longitude + "&apiKey=" + geoapifyApiKey);
+            URL url = new URL("http://api.positionstack.com/v1/reverse?access_key=" + POSITIONSTACKAPIKEY + "&query=" + latitude + "," + longitude);
             String response = sendRequest(url);
 
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response);
-            if (root.path("features").size() == 0) {
-                throw new CustomException("No results found for the given coordinates.");
-            }
-
-            JsonNode firstFeature = root.path("features").path(0);
-            String formattedAddress = firstFeature.path("properties").path("formatted").asText();
+            JsonNode firstResult = root.path("data").path(0);
+            String formattedAddress = firstResult.path("label").asText();
 
             return new ReverseGeocodeResponse(latitude, longitude, formattedAddress);
         } catch (IOException e) {
-            logger.error("Error occurred during reverse geocoding: {}", e.getMessage());
+            logger.error("Error occurred during reverse geocoding");
             throw new CustomException("Reverse Geocoding failed: " + e.getMessage());
         }
     }
