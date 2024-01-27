@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 public class ExternalAPIUtility {
 
     private final Logger logger = LoggerFactory.getLogger(ExternalAPIUtility.class);
-    private  static final  String POSITIONSTACKAPIKEY = "ff1941a8c45372a7cb65a574bbe4a23f";
+    private  static final  String POSITIONSTACKAPIKEY = "5ffefec064bcafa5054538dad6cf2362";
 
     public GeocodeResponse getGeocode(String address) {
         try {
