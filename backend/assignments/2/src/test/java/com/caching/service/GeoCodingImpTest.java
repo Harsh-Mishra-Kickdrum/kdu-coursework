@@ -1,4 +1,4 @@
-package com.kdu.caching.service;
+package com.caching.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
