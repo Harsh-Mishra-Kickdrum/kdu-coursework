@@ -31,6 +31,8 @@ public class GeoCodingImpTest {
     private static Object expectedReverseGeoCodingApiResponse;
     private static String geoCodingTestUrl;
     private static String reverseGeoCodingTestUrl;
+//new variable
+    private static String geoapifyApiKey;
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -291,19 +293,22 @@ public class GeoCodingImpTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+//updated code
     @BeforeAll
-    public static void setup(@Value("${geocoding-url}") String geoCodingUrl,
-                             @Value("${reverse-geocoding-url}") String reverseGeoCodingUrl) {
+    public static void setup(@Value("${geoapify.geocoding-url}") String geoCodingUrl,
+                             @Value("${geoapify.reverse-geocoding-url}") String reverseGeoCodingUrl,
+                             @Value("${geoapify.api.key}") String apiKey) {
         geoCodingTestUrl = geoCodingUrl;
         reverseGeoCodingTestUrl = reverseGeoCodingUrl;
+        geoapifyApiKey = apiKey;
 
         RestTemplate restTemplate = new RestTemplate();
         expectedGeoCodingApiResponse = restTemplate.getForObject(
-                geoCodingTestUrl,
+                geoCodingTestUrl.replace("{address}", "delhi").replace("{apikey}", geoapifyApiKey),
                 Object.class);
 
         expectedReverseGeoCodingApiResponse = restTemplate.getForObject(
-                reverseGeoCodingTestUrl,
+                reverseGeoCodingTestUrl.replace("{latitude}", "37.431155").replace("{longitude}", "-120.781462").replace("{apikey}", geoapifyApiKey),
                 Object.class);
     }
 }
