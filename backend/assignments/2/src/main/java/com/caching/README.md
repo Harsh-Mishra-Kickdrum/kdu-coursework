@@ -95,7 +95,7 @@ To set up and run the Geocoding and Decoding Project, follow these steps:
    Clone the project to your local machine using the following command:
 
 ```
-git clone []
+git clone [https://github.com/Harsh-Mishra-Kickdrum/kdu-coursework/tree/Assignment-2/backend/assignments/2]
 ```
 
 
