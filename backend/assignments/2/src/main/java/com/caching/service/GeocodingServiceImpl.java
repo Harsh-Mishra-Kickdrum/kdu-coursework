@@ -2,6 +2,7 @@ package com.caching.service;
 
 import com.caching.dto.GeocodeResponse;
 import com.caching.dto.ReverseGeocodeResponse;
+import com.caching.exception.CustomException;
 import com.caching.model.GeocodeData;
 import com.caching.repository.GeocodingCacheRepository;
 import com.caching.utility.ExternalAPIUtility;
@@ -9,67 +10,113 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
- * The GeocodingServiceImpl class implements the GeocodingService interface.
- * It provides concrete methods for obtaining geocode and reverse geocode information,
- * either from a cache or by querying an external API, and for evicting all related caches.
+ * Service implementation for geocoding operations.
  */
-
 @Service
 public class GeocodingServiceImpl implements GeocodingService {
 
     private static final Logger logger = LoggerFactory.getLogger(GeocodingServiceImpl.class);
     private GeocodingCacheRepository geocodingCacheRepository;
     private ExternalAPIUtility externalAPIUtility;
+
     @Autowired
-    public GeocodingServiceImpl(GeocodingCacheRepository geocodingCacheRepository,ExternalAPIUtility externalAPIUtility){
-        this.geocodingCacheRepository =  geocodingCacheRepository;
-        this.externalAPIUtility =externalAPIUtility;
+    public GeocodingServiceImpl(GeocodingCacheRepository geocodingCacheRepository, ExternalAPIUtility externalAPIUtility) {
+        this.geocodingCacheRepository = geocodingCacheRepository;
+        this.externalAPIUtility = externalAPIUtility;
     }
 
     /**
-     * Retrieves geocoding information for a given address, either from the cache or by querying an external API.
+     * Retrieves geocode information for a given address.
      *
-     * @param address The address for which geocoding information is requested.
-     * @return A GeocodeResponse containing the geocoding details for the provided address.
+     * @param address The address to retrieve geocode information for.
+     * @return A GeocodeResponse object containing the geocode information.
      */
-
     @Override
     public GeocodeResponse getGeocode(String address) {
         logger.info("Fetching geocode for address: {}", address);
-        return geocodingCacheRepository.findByAddress(address)
-                .map(data -> new GeocodeResponse(data.getAddress(), data.getLatitude(), data.getLongitude()))
-                .orElseGet(() -> {
-                    GeocodeResponse response = externalAPIUtility.getGeocode(address);
-                    geocodingCacheRepository.save(new GeocodeData(address, response.getLatitude(), response.getLongitude(), response.getAddress()));
-                    return response;
-                });
+        if ("Goa".equalsIgnoreCase(address)) {
+            return fetchAndSaveGeocodeData(address);
+        }
+        return getCachedGeocodeData(address);
     }
 
     /**
-     * Retrieves reverse geocoding information based on latitude and longitude, either from the cache or by querying an external API.
+     * Caches and retrieves geocode information for a given address.
      *
-     * @param latitude  The latitude coordinate for the location.
-     * @param longitude The longitude coordinate for the location.
-     * @return A ReverseGeocodeResponse containing the address information for the provided coordinates.
+     * @param address The address to retrieve geocode information for.
+     * @return A GeocodeResponse object containing the geocode information.
+     */
+    @Cacheable(value = "geocoding", key = "#address")
+    private GeocodeResponse getCachedGeocodeData(String address) {
+        return fetchAndSaveGeocodeData(address);
+    }
+
+    /**
+     * Fetches and saves geocode information from an external API.
+     *
+     * @param address The address to retrieve geocode information for.
+     * @return A GeocodeResponse object containing the geocode information.
+     */
+    private GeocodeResponse fetchAndSaveGeocodeData(String address) {
+        try {
+            return geocodingCacheRepository.findByAddress(address)
+                    .map(data -> new GeocodeResponse(data.getAddress(), data.getLatitude(), data.getLongitude()))
+                    .orElseGet(() -> {
+                        GeocodeResponse response = externalAPIUtility.getGeocode(address);
+                        geocodingCacheRepository.save(new GeocodeData(address, response.getLatitude(), response.getLongitude(), response.getAddress()));
+                        return response;
+                    });
+        } catch (Exception e) {
+            logger.error("Error fetching geocode for address: {}", address, e);
+            throw new CustomException("Error fetching geocode for address: " + address);
+        }
+    }
+
+    /**
+     * Retrieves reverse geocode information for given latitude and longitude.
+     *
+     * @param latitude  The latitude for which to retrieve reverse geocode information.
+     * @param longitude The longitude for which to retrieve reverse geocode information.
+     * @return A ReverseGeocodeResponse object containing the reverse geocode information.
      */
     @Override
+    @Cacheable(value = "reverse-geocoding", key = "{#latitude, #longitude}")
     public ReverseGeocodeResponse getReverseGeocode(double latitude, double longitude) {
         logger.info("Fetching reverse geocode for latitude: {}, longitude: {}", latitude, longitude);
-        return geocodingCacheRepository.findByLatLong(latitude, longitude)
-                .map(data -> new ReverseGeocodeResponse(data.getLatitude(), data.getLongitude(), data.getAddress()))
-                .orElseGet(() -> {
-                    ReverseGeocodeResponse response = externalAPIUtility.getReverseGeocode(latitude, longitude);
-                    geocodingCacheRepository.save(new GeocodeData(response.getAddress(), latitude, longitude, response.getAddress()));
-                    return response;
-                });
+        if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) {
+            throw new CustomException("Invalid latitude or longitude values");
+        }
+        return fetchAndSaveReverseGeocodeData(latitude, longitude);
     }
 
     /**
-     * Evicts all caches related to geocoding and reverse geocoding.
-     * This method is used to clear cached data and ensure fresh information is obtained.
+     * Fetches and saves reverse geocode information from an external API.
+     *
+     * @param latitude  The latitude for which to retrieve reverse geocode information.
+     * @param longitude The longitude for which to retrieve reverse geocode information.
+     * @return A ReverseGeocodeResponse object containing the reverse geocode information.
+     */
+    private ReverseGeocodeResponse fetchAndSaveReverseGeocodeData(double latitude, double longitude) {
+        try {
+            return geocodingCacheRepository.findByLatLong(latitude, longitude)
+                    .map(data -> new ReverseGeocodeResponse(data.getLatitude(), data.getLongitude(), data.getAddress()))
+                    .orElseGet(() -> {
+                        ReverseGeocodeResponse response = externalAPIUtility.getReverseGeocode(latitude, longitude);
+                        geocodingCacheRepository.save(new GeocodeData(response.getAddress(), latitude, longitude, response.getAddress()));
+                        return response;
+                    });
+        } catch (Exception e) {
+            logger.error("Error fetching reverse geocode for latitude: {}, longitude: {}", latitude, longitude, e);
+            throw new CustomException("Error fetching reverse geocode for latitude: " + latitude + ", longitude: " + longitude);
+        }
+    }
+
+    /**
+     * Evicts all entries from the geocoding and reverse-geocoding caches.
      */
     @Override
     @CacheEvict(value = {"geocoding", "reverse-geocoding"}, allEntries = true)

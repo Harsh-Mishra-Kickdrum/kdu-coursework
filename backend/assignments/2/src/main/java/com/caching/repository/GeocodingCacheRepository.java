@@ -9,9 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 /**
- * The GeocodingCacheRepository class provides methods for storing, retrieving, and managing
- * GeocodeData in caches. It abstracts the caching logic and provides a clear interface
- * for geocoding and reverse-geocoding data operations.
+ * Repository for caching geocoding and reverse geocoding data.
  */
 @Repository
 public class GeocodingCacheRepository implements GeocodingCacheRepositoryInterface {
@@ -20,20 +18,24 @@ public class GeocodingCacheRepository implements GeocodingCacheRepositoryInterfa
     private final Cache reverseGeocodingCache;
 
     /**
-     * Constructor for GeocodingCacheRepository.
-     * Initializes the geocoding and reverse-geocoding caches.
+     * Constructs a GeocodingCacheRepository with a given cache manager.
      *
-     * @param cacheManager The CacheManager to retrieve caches from.
+     * @param cacheManager the cache manager to manage the geocoding caches
+     * @throws IllegalStateException if geocoding or reverse geocoding cache is not configured
      */
     public GeocodingCacheRepository(CacheManager cacheManager) {
         this.geocodingCache = cacheManager.getCache("geocoding");
         this.reverseGeocodingCache = cacheManager.getCache("reverse-geocoding");
+
+        if (geocodingCache == null || reverseGeocodingCache == null) {
+            throw new IllegalStateException("Cache configuration error");
+        }
     }
 
     /**
-     * Saves the provided GeocodeData in both geocoding and reverse-geocoding caches.
+     * Saves geocode data in the cache.
      *
-     * @param data The GeocodeData to be saved in the cache.
+     * @param data the geocode data to be cached
      */
     @Override
     public void save(GeocodeData data) {
@@ -42,10 +44,10 @@ public class GeocodingCacheRepository implements GeocodingCacheRepositoryInterfa
     }
 
     /**
-     * Retrieves GeocodeData by address from the geocoding cache.
+     * Finds geocode data by address.
      *
-     * @param address The address for which GeocodeData is to be retrieved.
-     * @return An Optional containing the GeocodeData if found, otherwise an empty Optional.
+     * @param address the address to search for
+     * @return an Optional containing the found geocode data, or an empty Optional if not found
      */
     @Override
     public Optional<GeocodeData> findByAddress(String address) {
@@ -53,11 +55,11 @@ public class GeocodingCacheRepository implements GeocodingCacheRepositoryInterfa
     }
 
     /**
-     * Retrieves GeocodeData by latitude and longitude from the reverse-geocoding cache.
+     * Finds geocode data by latitude and longitude.
      *
-     * @param latitude  The latitude of the location.
-     * @param longitude The longitude of the location.
-     * @return An Optional containing the GeocodeData if found, otherwise an empty Optional.
+     * @param latitude  the latitude of the location
+     * @param longitude the longitude of the location
+     * @return an Optional containing the found geocode data, or an empty Optional if not found
      */
     @Override
     public Optional<GeocodeData> findByLatLong(double latitude, double longitude) {
@@ -65,17 +67,32 @@ public class GeocodingCacheRepository implements GeocodingCacheRepositoryInterfa
     }
 
     /**
-     * Evicts the GeocodeData associated with the specified address from the geocoding cache.
+     * Deletes geocode data by address from the cache.
      *
-     * @param address The address whose associated GeocodeData is to be removed from the cache.
+     * @param address the address of the geocode data to delete
      */
     @Override
     public void deleteByAddress(String address) {
+        Optional<GeocodeData> data = findByAddress(address);
         geocodingCache.evict(address);
+        data.ifPresent(d -> reverseGeocodingCache.evict(new LatLongKey(d.getLatitude(), d.getLongitude())));
     }
 
     /**
-     * Clears all entries from both geocoding and reverse-geocoding caches.
+     * Deletes geocode data by latitude and longitude from the cache.
+     *
+     * @param latitude  the latitude of the location
+     * @param longitude the longitude of the location
+     */
+    @Override
+    public void deleteByLatLong(double latitude, double longitude) {
+        Optional<GeocodeData> data = findByLatLong(latitude, longitude);
+        reverseGeocodingCache.evict(new LatLongKey(latitude, longitude));
+        data.ifPresent(d -> geocodingCache.evict(d.getAddress()));
+    }
+
+    /**
+     * Deletes all geocode data from both caches.
      */
     @Override
     public void deleteAll() {

@@ -19,22 +19,22 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Utility class for interacting with external geocoding APIs.
- * This class provides methods to perform geocoding and reverse geocoding operations.
  */
 @Component
 public class ExternalAPIUtility {
 
     private final Logger logger = LoggerFactory.getLogger(ExternalAPIUtility.class);
 
+    private static final String ERROR = "Error";
     @Value("${positionstack.api.key}")
     private String positionStackApiKey;
 
     /**
-     * Retrieves geocode information for a given address.
+     * Retrieves geocode information for a given address using the PositionStack API.
      *
-     * @param address the address to be geocoded.
-     * @return GeocodeResponse containing the latitude, longitude, and formatted address.
-     * @throws CustomException if an error occurs during the geocoding process.
+     * @param address The address to geocode.
+     * @return A GeocodeResponse object containing the geocode information.
+     * @throws CustomException if there is an error during the API call.
      */
     public GeocodeResponse getGeocode(String address) {
         try {
@@ -44,25 +44,31 @@ public class ExternalAPIUtility {
 
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response);
+            if (root.has(ERROR)) {
+                throw new CustomException("API Error: " + root.path(ERROR).toString());
+            }
             JsonNode firstResult = root.path("data").path(0);
+            if (firstResult.isMissingNode()) {
+                throw new CustomException("No results found");
+            }
             double latitude = firstResult.path("latitude").asDouble();
             double longitude = firstResult.path("longitude").asDouble();
             String formattedAddress = firstResult.path("label").asText();
 
             return new GeocodeResponse(formattedAddress, latitude, longitude);
         } catch (IOException e) {
-            logger.error("Error occurred during geocoding", e);
+            logger.error("Error occurred during geocoding:");
             throw new CustomException("Geocoding failed: " + e.getMessage());
         }
     }
 
     /**
-     * Retrieves the address for given geographic coordinates.
+     * Retrieves reverse geocode information for given latitude and longitude using the PositionStack API.
      *
-     * @param latitude the latitude of the location to reverse geocode.
-     * @param longitude the longitude of the location to reverse geocode.
-     * @return ReverseGeocodeResponse containing the latitude, longitude, and human-readable address.
-     * @throws CustomException if an error occurs during the reverse geocoding process.
+     * @param latitude  The latitude for the reverse geocode.
+     * @param longitude The longitude for the reverse geocode.
+     * @return A ReverseGeocodeResponse object containing the reverse geocode information.
+     * @throws CustomException if there is an error during the API call.
      */
     public ReverseGeocodeResponse getReverseGeocode(double latitude, double longitude) {
         try {
@@ -71,22 +77,28 @@ public class ExternalAPIUtility {
 
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response);
+            if (root.has("error")) {
+                throw new CustomException("API Error: " + root.path("error").toString());
+            }
             JsonNode firstResult = root.path("data").path(0);
+            if (firstResult.isMissingNode()) {
+                throw new CustomException("No results found");
+            }
             String formattedAddress = firstResult.path("label").asText();
 
             return new ReverseGeocodeResponse(latitude, longitude, formattedAddress);
         } catch (IOException e) {
-            logger.error("Error occurred during reverse geocoding", e);
+            logger.error("Error occurred during reverse geocoding:");
             throw new CustomException("Reverse Geocoding failed: " + e.getMessage());
         }
     }
 
     /**
-     * Sends an HTTP GET request to the specified URL and returns the response as a string.
+     * Sends an HTTP GET request to the specified URL and returns the response.
      *
-     * @param url the URL to which the GET request is sent.
-     * @return the response from the server as a String.
-     * @throws IOException if an I/O error occurs.
+     * @param url The URL to send the request to.
+     * @return A String containing the response from the URL.
+     * @throws IOException if there is an error in sending the request.
      */
     private String sendRequest(URL url) throws IOException {
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
