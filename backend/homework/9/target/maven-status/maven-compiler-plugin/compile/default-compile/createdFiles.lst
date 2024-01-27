@@ -1,0 +1,15 @@
+com/example/springhandson3/SpringHandsOn3Application.class
+com/example/springhandson3/controller/VehicleController.class
+com/example/springhandson3/dto/request/UpdateVehicleRequest.class
+com/example/springhandson3/entity/Vehicle.class
+com/example/springhandson3/dto/response/VehicleResponse.class
+com/example/springhandson3/exception/customexceptions/BadRequestException.class
+com/example/springhandson3/services/VehicleService.class
+com/example/springhandson3/repository/VehicleRepository.class
+com/example/springhandson3/services/VehicleServiceImp.class
+com/example/springhandson3/dto/request/AddVehicleRequest.class
+com/example/springhandson3/exception/handlers/ResourceNotFoundExceptionHandler.class
+com/example/springhandson3/exception/customexceptions/ResourceNotFoundException.class
+com/example/springhandson3/exception/handlers/BadRequestExceptionHandler.class
+com/example/springhandson3/exception/handlers/GlobalExceptionHandler.class
+com/example/springhandson3/exception/ErrorResponse.class
