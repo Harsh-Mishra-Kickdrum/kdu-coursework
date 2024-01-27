@@ -101,6 +101,20 @@
 			<version>2.13.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Mockito (if additional Mockito features are needed) -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>4.0.0</version> <!-- Adjust the version as needed -->
+			<scope>test</scope>
+		</dependency>
+
 
 	</dependencies>
 
