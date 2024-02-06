@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS HandsOn 1</title>
+    <link rel="stylesheet" href="reset.css"> 
+    <link rel="stylesheet" href="style.css"> 
+
+</head>
+<body>
+
+<!-- HTML 5 Structural Tags -->
+<header>
+<h1>
+  <div class="rotating-box rotating-box-left"></div>
+        HTML AND CSS BASICS DEMO
+        <div class="rotating-box rotating-box-right"></div>
+</h1>
+    <H2>BY HARSH MISHRA</H2>
+</header>
+
+<nav>
+    <!-- Placeholder for navigation -->
+    <ul>
+        <li><a href="#forms">Forms Section</a></li>
+        <li><a href="#html5">HTML5 Tags</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section id="html5">
+        <h2 id="uniqueElement">HTML 5 Tags</h2>
+        <article>
+            <h3>Article Tag</h3>
+            <p>This is an article about HTML5 tags.</p>
+        </article>
+        <aside>
+            <h3>Aside Tag</h3>
+            <p>Side information that could be related.</p>
+        </aside>
+    </section>
+
+    <!-- Heading Tags -->
+    <section>
+        <h2>Heading Tags</h2>
+        <h1>Heading 1</h1>
+        <h2>Heading 2</h2>
+        <h3>Heading 3</h3>
+        <h4>Heading 4</h4>
+        <h5>Heading 5</h5>
+        <h6>Heading 6</h6>
+    </section>
+
+    <!-- Anchor Tags -->
+    <section>
+        <h2>Anchor Tags with Different _target Values</h2>
+        <a href="https://example.com" target="_blank">Open in New Tab</a> |
+        <a href="https://example.com" target="_self">Open in Same Frame</a>
+    </section>
+
+    <!-- Image Tag -->
+    <section>
+        <h2>Img Tag</h2>
+        <img src="image.png" alt="Demo Image" width="200">
+    </section>
+
+    <!-- Lists -->
+    <section>
+        <h2>Ordered & Unordered Lists</h2>
+        <ol>
+            <li>First Ordered Item</li>
+            <li>Second Ordered Item</li>
+        </ol>
+        <ul>
+            <li>First Unordered Item</li>
+            <li>Second Unordered Item</li>
+        </ul>
+    </section>
+
+    <!-- Forms -->
+    <section id="forms">
+        <h2>Forms</h2>
+        <form>
+            <label for="textArea">Text Area:</label>
+            <textarea id="textArea" name="textArea"></textarea>
+
+            <label>Radio Buttons:</label>
+            <input type="radio" name="radio" value="Option1"> Option 1
+            <input type="radio" name="radio" value="Option2"> Option 2
+
+            <label>Checkboxes:</label>
+            <input type="checkbox" name="checkbox1"> Checkbox 1
+            <input type="checkbox" name="checkbox2"> Checkbox 2
+
+            <label for="select">Select:</label>
+            <select id="select" name="select">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </select>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+
+            <label for="number">Number:</label>
+            <input type="number" id="number" name="number">
+
+            <label for="tel">Telephone:</label>
+            <input type="tel" id="tel" name="tel">
+
+            <label for="search">Search:</label>
+            <input type="search" id="search" name="search">
+
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset">
+        </form>
+    </section>
+
+    <!-- Paragraphs, pre, blockquote, code -->
+    <section>
+        <h2>Text Formatting Tags</h2>
+        <p>Paragraph text here. <code>Code snippet</code>.</p>
+        <pre>
+Preformatted text block
+  by Harsh Mishra
+        </pre>
+        <blockquote cite="https://www.w3schools.com/css/css_pseudo_classes.asp">Blockquote text here from the given site link.</blockquote>
+    </section>
+
+    <!-- Text Styles -->
+    <section>
+        <h2>Text Styles</h2>
+        <p><i>Italics</i>, <b>Bold</b>, <sup>Superscript</sup>, <u>Underline</u>, <sub>Subscript</sub>, <del>Strikethrough</del>.</p>
+    </section>
+</main>
+
+<footer>
+    <p>Footer Content</p>
+</footer>
+
+<!-- HTML Comments -->
+<!-- This is a comment that will not appear in the browser -->
+
+</body>
+</html>
