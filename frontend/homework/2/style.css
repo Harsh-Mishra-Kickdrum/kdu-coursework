@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.weather-container {
+  background-color: white;
+  height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+.weather-container .city-overview {
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  box-sizing: border-box;
+  line-height: 3rem;
+}
+.weather-container .city-overview h1 {
+  font-size: 80px;
+  margin: 2rem 0;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+}
+.weather-container .city-overview p {
+  font-family: "Lato", sans-serif;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 30px;
+}
+.weather-container .temperature-section {
+  display: flex;
+  padding: 0 2rem;
+}
+.weather-container .temperature-section .temperature-left, .weather-container .temperature-section .temperature-right {
+  width: 50%;
+}
+.weather-container .temperature-section .temperature-left img, .weather-container .temperature-section .temperature-right img {
+  width: 20%;
+  margin: -1rem 1rem 0 0;
+}
+.weather-container .temperature-section .temperature-left span, .weather-container .temperature-section .temperature-right span {
+  font-size: 80px;
+  line-height: 5rem;
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: 800;
+  margin: -1rem 0;
+}
+.weather-container .temperature-section .temperature-left span sup, .weather-container .temperature-section .temperature-right span sup {
+  vertical-align: super;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 30px;
+}
+.weather-container .temperature-section .temperature-left p, .weather-container .temperature-section .temperature-right p {
+  font-size: 40px;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 0.5rem;
+}
+.weather-container .weekly-forecast {
+  display: flex;
+  justify-content: center;
+}
+.weather-container .weekly-forecast .day-forecast {
+  width: 13vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.6);
+}
+.weather-container .weekly-forecast .day-forecast h3 {
+  font-size: 30px;
+  font-weight: bold;
+}
+.weather-container .weekly-forecast .day-forecast img {
+  width: 80%;
+}
+.weather-container .weekly-forecast .day-forecast .temperature-stats {
+  display: flex;
+  justify-content: space-around;
+  font-size: 30px;
+}
+.weather-container .weekly-forecast .day-forecast .temperature-stats .temp-high {
+  font-weight: 700;
+  color: black;
+}
+.weather-container .weekly-forecast .day-forecast p {
+  font-size: 30px;
+}/*# sourceMappingURL=style.css.map */

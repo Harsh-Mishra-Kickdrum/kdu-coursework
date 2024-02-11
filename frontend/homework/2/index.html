@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Weather Forecast" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.example.com" />
+    <meta property="og:image" content="https://www.example.com/images/og-image.png" />
+    <meta property="og:description" content="Detailed weather forecast for New York, NY." />
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="weather-container">
+
+    <!-- Weather overview -->
+    <div class="city-overview" aria-label="City Details">
+        <h1 aria-label="City Name">New York, NY</h1>
+        <p aria-label="Date">Tuesday, April 15th</p>
+        <p aria-label="Weather Condition">Overcast</p>
+    </div>
+
+    <!-- Temperature and conditions -->
+    <div class="temperature-section">
+        <div class="temperature-left">
+            <img src="./icons/cloudy.png" alt="Cloudy" />
+            <span>
+                58<sup>&deg;F</sup>
+            </span>
+        </div>
+
+        <div class="temperature-right">
+            <p>Precipitation: 100%</p>
+            <p>Humidity: 97%</p>
+            <p>Wind: 4 mph SW</p>
+            <p>Pollen Count: 36</p>
+        </div>
+    </div>
+
+    <!-- Weekly forecast -->
+    <div class="weekly-forecast">
+        <div class="day-forecast" aria-label="Today's Forecast">
+            <h3>Today</h3>
+            <img src="./icons/thunder.png" alt="Thunderstorms" />
+            <div class="temperature-stats">
+                <div class="temp-high">68&deg;</div>
+                <div class="temp-low">36&deg;</div>
+            </div>
+            <p>Pollen 36</p>
+        </div>
+
+        <div class="day-forecast" aria-label="Wednesday's Forecast">
+            <h3>Wednesday</h3>
+            <img src="./icons/sunny.png" alt="Sunny" />
+            <div class="temperature-stats">
+                <div class="temp-high">50&deg;</div>
+                <div class="temp-low">39&deg;</div>
+            </div>
+            <p>Pollen 36</p>
+        </div>
+
+        <div class="day-forecast" aria-label="Thursday's Forecast">
+            <h3>Thursday</h3>
+            <img src="./icons/sunny.png" alt="Sunny" />
+            <div class="temperature-stats">
+                <div class="temp-high">55&deg;</div>
+                <div class="temp-low">39&deg;</div>
+            </div>
+            <p>Pollen 36</p>
+        </div>
+
+        <div class="day-forecast" aria-label="Friday's Forecast">
+            <h3>Friday</h3>
+            <img src="./icons/partly cloudy.png" alt="Partly Cloudy" /> 
+            <div class="temperature-stats">
+                <div class="temp-high">54&deg;</div>
+                <div class="temp-low">43&deg;</div>
+            </div>
+            <p>Pollen 36</p>
+        </div>
+
+        <div class="day-forecast" aria-label="Saturday's Forecast">
+            <h3>Saturday</h3>
+            <img src="./icons/rain.png" alt="Rain" />
+            <div class="temperature-stats">
+                <div class="temp-high">64&deg;</div>
+                <div class="temp-low">46&deg;</div>
+            </div>
+            <p>Pollen 36</p>
+        </div>
+
+        <div class="day-forecast" aria-label="Sunday's Forecast">
+            <h3>Sunday</h3>
+            <img src="./icons/rain.png" alt="Rain" />
+            <div class="temperature-stats">
+                <div class="temp-high">64&deg;</div>
+                <div class="temp-low">50&deg;</div>
+            </div>
+            <p>Pollen 36</p>
+        </div>
+
+        <div class="day-forecast" aria-label="Monday's Forecast">
+            <h3>Monday</h3>
+            <img src="./icons/partly cloudy.png" alt="Partly Cloudy" />
+            <div class="temperature-stats">
+                <div class="temp-high">61&deg;</div>
+                <div class="temp-low">50&deg;</div>
+            </div>
+            <p>Pollen 36</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
