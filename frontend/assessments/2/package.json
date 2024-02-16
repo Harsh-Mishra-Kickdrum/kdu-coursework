@@ -1,0 +1,23 @@
+{
+  "name": "2",
+  "version": "1.0.0",
+  "description": "Assessment 2",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js  && nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "socket.io": "^4.7.4"
+  },
+  "devDependencies": {
+    "casual": "^1.6.2",
+    "json-server": "^1.0.0-alpha.23",
+    "nodemon": "^3.0.3"
+  }
+}
