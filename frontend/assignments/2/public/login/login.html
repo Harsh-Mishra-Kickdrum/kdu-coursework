@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src-elem 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" href="../images/logo.svg" />
+  <title>Login X</title>
+  <link rel="stylesheet" href="login.css">
+  <script defer src="login.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="login-form">
+        <div class="loginline">
+      <h1>Login to <span><img src="../images/logo.svg" alt=""></span></h1></div>
+      <form action="api/user/login" method="post">
+        <label for="username"></label>
+        <input type="text" id="username" name="username" required placeholder="Username">
+        <label for="password" ></label>
+        <input type="password" id="password" name="password" required placeholder="Password">
+        <button type="submit">Log In</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

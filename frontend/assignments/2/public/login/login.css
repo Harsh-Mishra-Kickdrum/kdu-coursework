@@ -1,0 +1,60 @@
+body {
+  background-color: black;
+  font-family: sans-serif;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+body .container {
+  background-color: transparent;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: none;
+}
+body .login-form {
+  background-color: black;
+  padding: 30px;
+  border-radius: 5px;
+  text-align: center;
+}
+body .login-form h1, body .login-form label {
+  color: white;
+  margin-bottom: 20px;
+}
+body .login-form h1 img, body .login-form label img {
+  height: 49px;
+}
+body .login-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+body .login-form input[type=text],
+body .login-form input[type=password] {
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border: 2px rgb(29, 155, 240);
+  border-radius: 0px;
+  margin-bottom: 15px;
+  border: 3px solid rgb(29, 155, 240);
+}
+body .login-form button {
+  background-color: rgb(29, 155, 240);
+  color: rgb(248, 247, 247);
+  padding: 9px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100%;
+  margin-left: 13px;
+  border-radius: 15px;
+}
+body .loginline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}/*# sourceMappingURL=login.css.map */
