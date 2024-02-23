@@ -1,0 +1,24 @@
+
+.quoteListContainer {
+  display: flex;
+  flex-direction: column;
+
+  .starting-message{
+    justify-content: center;
+    text-align: center;
+    font-weight: 900;
+    font-size: 25px;
+    margin-left: 430px;
+    margin-top: 10px;
+    display: flex;
+    color: rgb(3, 240, 129);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .spinner{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+}
