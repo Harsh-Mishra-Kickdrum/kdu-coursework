@@ -1,0 +1,24 @@
+// AutoFocusInput.module.scss
+.input-area{
+
+
+.input-text {
+  padding: 8px 12px;
+  border: 2px solid #f9fbfc; 
+  border-radius: 4px;
+  outline: none;
+  font-size: 16px;
+  color: #f7f5f5;
+  margin: 10px ;
+
+  &::placeholder{
+    color: #9c9e9e;
+  }
+  
+
+  &:focus {
+    border-color: #06e02b; 
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25); 
+  }
+}
+}

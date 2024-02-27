@@ -1,0 +1,25 @@
+// LongContentPage.module.scss
+.container {
+  // max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.heading {
+  color: #007bff; // Example heading color
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.para-content {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  text-align: justify;
+  color: #333; // Dark grey text for better readability
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

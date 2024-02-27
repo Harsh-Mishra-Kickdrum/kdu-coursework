@@ -1,0 +1,22 @@
+// ScrollToTop.scss
+.scroll-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #007bff; 
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1000; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+  &:hover {
+    background-color: #0056b3; 
+  }
+
+  &:focus {
+    outline: none; 
+  }
+}
