@@ -1,4 +1,4 @@
-//create a button component
+
 import * as S from "./Button.styles";
 import React from "react";
 
