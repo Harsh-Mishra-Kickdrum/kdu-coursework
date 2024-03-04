@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+body{
+    font-family: Poppins,cursive;
+    background-color: #f8f9fa;
+    text-decoration: none;
+    height:auto;
+}
+
+table{
+    background-color: transparent;
+    padding-top:10px;
+}
+
+/* a{
+    color:white !important;
+} */
