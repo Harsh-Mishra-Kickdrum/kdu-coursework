@@ -1,0 +1,38 @@
+// Timer.scss
+
+.Timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 300px;
+}
+
+.Timer__seconds {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.reset-btn {
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #368fee;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #3e0bf5;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
