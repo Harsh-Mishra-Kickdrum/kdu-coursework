@@ -1,0 +1,50 @@
+  .empty-message {
+    text-align: center;
+    font-size: 16px; /* Consistent with styling details */
+    font-family: 'Lato', sans-serif; /* Consistent with styling details */
+    padding: 20px;
+    margin: auto;
+    color: #ddd !important;
+  }
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1px;
+    border-bottom: 1px solid #ddd;
+
+    input {
+      margin-right: 10px;
+    }
+
+    span {
+      font-size: 16px; /* Consistent with styling details */
+      font-family: 'Lato', sans-serif; /* Consistent with styling details */
+      opacity: 1; /* Default opacity */
+    }
+
+
+    button {
+      padding: 5px;
+      border: none;
+      background-color: rgb(252, 250, 250); /* Clear red color */
+      color: rgb(241, 5, 5);
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s ease; /* Add smooth transition on hover */
+
+      &:hover {
+        background-color: rgb(238, 157, 157); /* Darken on hover */
+      }
+    }
+
+  }
+
+
+}
