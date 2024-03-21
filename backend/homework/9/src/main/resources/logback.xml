@@ -1,0 +1,41 @@
+<configuration>
+
+    <!-- Change the LOGS property to point to the 'logging' package directory -->
+    <property name="LOGS" value="src/main/java/com/example/springhandson3/logging" />
+
+    <springProfile name="prod">
+        <!-- Production configuration -->
+        <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <!-- Update file path for production logs -->
+            <file>${LOGS}/prod.log</file>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- Update archived file path for production logs -->
+                <fileNamePattern>${LOGS}/archived/prod-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+            </rollingPolicy>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="RollingFile" />
+        </root>
+    </springProfile>
+
+    <springProfile name="dev">
+        <!-- Development configuration -->
+        <appender name="FileAppender" class="ch.qos.logback.core.FileAppender">
+            <!-- Update file path for development logs -->
+            <file>${LOGS}/dev.log</file>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</Pattern>
+            </encoder>
+        </appender>
+        <root level="DEBUG">
+            <appender-ref ref="FileAppender" />
+        </root>
+    </springProfile>
+
+</configuration>
