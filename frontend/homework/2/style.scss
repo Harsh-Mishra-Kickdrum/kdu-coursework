@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.weather-container {
+    background-color: white;
+    height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+
+    .city-overview {
+      height: 30vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem;
+      box-sizing: border-box;
+      line-height: 3rem;
+
+      h1 {
+        font-size: 80px;
+        margin: 2rem 0;
+        font-family: 'Lato', sans-serif;
+        font-weight: 400;
+      }
+
+      p {
+        font-family: 'Lato', sans-serif;
+        color: rgba(0,0,0,.6);
+        font-size: 30px;
+      }
+    }
+
+    .temperature-section {
+      display: flex;
+      padding: 0 2rem;
+
+      .temperature-left, .temperature-right {
+        width: 50%;
+        
+        img {
+          width: 20%;
+          margin: -1rem 1rem 0 0;
+        }
+
+        span {
+          font-size: 80px;
+          line-height: 5rem;
+          color: rgba(0,0,0,.7);
+          font-weight: 800 ;
+          margin: -1rem 0 ;
+          
+          sup {
+            vertical-align: super;
+            color: rgba(0,0,0,.6);
+            font-size: 30px;
+          
+
+          }
+        }
+        
+        p {
+          font-size: 40px;
+          color: rgba(0,0,0,.6);
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+
+    .weekly-forecast {
+      display: flex;
+      justify-content: center;
+
+      .day-forecast {
+        width: 13vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: rgba(0,0,0,.6);
+
+        h3 {
+          font-size: 30px;
+          font-weight: bold;
+        }
+
+        img {
+          width: 80%;
+        }
+
+        .temperature-stats {
+          display: flex;
+          justify-content: space-around;
+          font-size: 30px;
+          
+          .temp-high {
+            font-weight: 700;
+            color: black;
+          }
+        }
+
+        p {
+          font-size: 30px;
+        }
+      }
+    }
+}
