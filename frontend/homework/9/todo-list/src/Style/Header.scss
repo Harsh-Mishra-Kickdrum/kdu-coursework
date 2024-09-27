@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+@import "Common.scss"; // Assuming Common.scss exists in the same directory
+
+.name,
+.full-name,
+.qualification {
+  text-align: left;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 10px;
+  font-size: 25px;
+  color: black;
+  margin-left: 60px;
+}
+
+h3 {
+  margin-bottom: 5px;
+  text-align: center;
+  font-family: "Lato", sans-serif;
+  font-weight: bold; 
+  font-style: italic;
+}
+
+ul > li {
+  list-style: none;
+  font-family: "Lato", sans-serif;
+  font-weight: bold; 
+  font-style: italic;
+  margin-bottom: 20px;
+}
