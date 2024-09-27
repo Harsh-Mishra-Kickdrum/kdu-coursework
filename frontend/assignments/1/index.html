@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/reset.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="icon" href="./images/logo.svg" />
+  <title>X</title>
+  <script defer src="./main.js"></script>
+</head>
+<body>
+  <!-- Main content wrapper -->
+  <main class="main-content">
+    <!-- Mobile view floating tweet box button -->
+     <button id="mobile-tweet-action" class="floating-tweet-box-icon" aria-label="Compose new tweet">
+      <img src="./images/fob.svg" alt="Floating Action" />
+    </button>
+
+
+      <!-- Mobile navigation profile icon for quick access -->
+    <nav class="mobile-navigation">
+      <button class="profile-icon" aria-label="View profile">
+        <img src="./images/profilepic.png" alt="Profile Image" />
+      </button>
+    </nav>
+
+    <!-- Desktop navigation section -->
+    <section class="navigation-section">
+      <img class="nav-logo" src="./images/logo.svg" alt="Twitter Logo" />
+
+      <!-- Navigation buttons -->
+       <button class="nav-btn">
+        <div class="indicator-dot"></div>
+        <img src="./images/home.svg" alt="Home" />
+        <p>Home</p>
+      </button>
+
+      <!--                  ...... ........ . .. . . . . . . . . -->
+
+         <button class="nav-btn">
+        <img src="./images/search.svg" alt="Explore" />
+        <p>Explore</p>
+      </button>
+
+      <button class="nav-btn">
+        <img src="./images/notification.svg" alt="Notifications" />
+        <p>Notifications</p>
+      </button>
+
+      <button class="nav-btn">
+        <img src="./images/message.svg" alt="Messages" />
+        <p>Messages</p>
+      </button>
+
+      <button class="nav-btn">
+        <img src="./images/grok.svg" alt="Grok" />
+        <p>Grok</p>
+      </button>
+
+      <button class="nav-btn">
+        <img src="./images/list.svg" alt="List" />
+        <p>Lists</p>
+      </button>
+
+      <button class="nav-btn">
+        <img src="./images/bookmark_navbar.svg" alt="Bookmark" />
+        <p>Bookmarks</p>
+      </button>
+
+      <button class="nav-btn">
+        <img src="./images/communities.svg" alt="Communities" />
+        <p>Communities</p>
+      </button>
+
+      <button class="nav-btn">
+        <img src="./images/monetization.svg" alt="Monetization" />
+        <p>Monetization</p>
+      </button>
+
+      <button class="nav-btn">
+        <img src="./images/settings.svg" alt="Settings" />
+        <p>Settings and Privacy</p>
+      </button>
+
+      <button class="nav-btn">
+        <img src="./images/logo.svg" alt="Premium" />
+        <p>Premium</p>
+      </button>
+
+      <button class="nav-btn">
+        <img src="./images/person.svg" alt="Profile" />
+        <p>Profile</p>
+      </button>
+
+      <button class="nav-btn">
+        <img src="./images/more.svg" alt="More" />
+        <p>More</p>
+      </button>
+
+      <button class="nav-btn">
+        <img src="./images/logout.svg" alt="Logout" />
+        <p>Logout</p>
+      </button>
+
+      <button class="navigation-button--primary">
+        <p>Post</p>
+      </button>
+
+<!--            .......................................................................... ...........-->
+
+ <!-- User profile and more info section -->
+    <section class="user-profile-info">
+      <div class="user-info">
+        <img class="user-avatar" src="./images/profilepic.png" alt="User Profile" />
+        <div>
+          <h1 class="user-name">Nitish Gupta</h1>
+          <p class="user-handle">@@nit_hck · 1s</p>
+        </div>
+        <div class="user-stats">
+          <p><span>1</span> Follower</p>
+          <p><span>0</span> Following</p>
+        </div>
+      </div>
+      <img class="icon-more" src="./images/three_dots.svg" alt="More" role="button" />
+      <img class="icon-add" src="./images/plus.svg" alt="Add" role="button" />
+    </section>
+
+    <!-- Post section with tweet composer and feed -->
+    <section class="content-area">
+      <!-- Tweet composer section -->
+      <section class="tweet-composer">
+        <div class="back-to-drafts">
+          <img src="./images/back.svg" alt="Back" />
+          <p>Drafts</p>
+        </div>
+
+        <img class="profile-picture" src="./images/profilepic.png" alt="Profile" />
+
+        <!-- Input area for composing tweets -->
+        <div class="input-area post-input">
+          <input id="compose-tweet" type="text" placeholder="What is happening?!" aria-label="Compose tweet"/>
+          <div class="tweet-options">
+            <class="tweet-options-icons">
+                  <img src="./images/world.svg" alt="Everyone" />
+            <p>Everyone can reply</p>
+          </div>
+
+              <div class="tweet-box-options">
+              <div class="tweet-box-options-mobile"></div>
+              <div class="tweet-icons">
+              <!-- Icons for tweet options like images, GIFs, etc. -->
+              <img src="./images/image.svg" alt="Image" />
+              <img src="./images/gif.svg" alt="GIF" />
+              <img src="./images/poll.svg" alt="Add Poll" />
+              <img src="./images/emoji.svg" alt="Emoji" />
+              <img src="./images/schedule.svg" alt="Add Schedule" />
+              <img src="./images/location.svg" alt="Location" />
+            </div>
+              <!--  ........ .. . . .. . . . . . . . .. . . .. . . . . . . .. . . . . -->
+            </div>
+                <button id="post-tweet" class="tweet-btn" disabled>Post</button>
+            </div>
+            <div class="floating-tweet-box-icon" role="button" aria-label="Open tweet box">
+                <!-- Floating icon for mobile view -->
+                <img src="./images/fob.svg" alt="Floating Action" />
+            </div>
+        </section>
+
+        <!-- Posts Container -->
+        <section id="feed-container" class="feed-section">
+            <div class="posts" aria-label="User posts">
+                <!-- Individual Post -->
+                <article class="post">
+                    <img class="post-avatar" src="./images/profilepic.png" alt="User avatar" />
+                    <div class="post-details">
+                        <header class="post-header">
+                            <h2>Nitesh Gupta</h2>
+                            <p>@nit_hck · 1s</p>
+                            <img src="./images/three_dots.svg" alt="More Info" />
+                        </header>
+
+                        <div class="post-body">
+                            <p>Coffee in hand, bugs beware. Time to crush some code.</p>
+                            <span>#DeveloperLife</span>
+                            <span>#Coding</span>
+                        </div>
+
+                        <!-- Post Interactions -->
+                        <footer class="post-actions">
+                            <img src="./images/comment.svg" alt="Comment" role="button" />
+                            <img src="./images/retweet.svg" alt="Retweet" role="button" />
+                            <div class="interaction-like">
+                                <svg class="like-post" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" role="button">
+                                    <g>
+                                        <path fill="#808080" d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path>
+                                    </g>
+                                </svg>
+                                <span class="likes-count">0</span>
+                            </div>
+                            <img src="./images/stats.svg" alt="Stats" role="button" />
+
+                            <div class="post-extra-actions">
+                                <img src="./images/bookmark.svg" alt="Bookmark" role="button" />
+                                <img src="./images/share.svg" alt="Share" role="button" />
+                            </div>
+                        </footer>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+
+          <!-- Posts Container -->
+        <section id="feed-container" class="feed-section">
+            <div class="posts" aria-label="User posts">
+                <!-- Individual Post -->
+                <article class="post">
+                    <img class="post-avatar" src="./images/mypic.jpeg" alt="User avatar" />
+                    <div class="post-details">
+                        <header class="post-header">
+                            <h1>Harsh Mishra</h1>
+                                <p>@HMC ·</p>
+                                <span>5s</span>
+                            <img src="./images/three_dots.svg" alt="More Info" />
+                        </header>
+
+                        <div class="post-body">
+                            <p>Development is a choice,with full of surprises.</p>
+                                <span>#SoftwareDeveloper</span>
+                                <span>#Coding</span>
+                        </div>
+
+                        <!-- Post Interactions -->
+                        <footer class="post-actions">
+                            <img src="./images/comment.svg" alt="Comment" role="button" />
+                            <img src="./images/retweet.svg" alt="Retweet" role="button" />
+                            <div class="interaction-like">
+                                <svg class="like-post" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" role="button">
+                                    <g>
+                                        <path fill="#808080" d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path>
+                                    </g>
+                                </svg>
+                                <span class="likes-count">0</span>
+                            </div>
+                            <img src="./images/stats.svg" alt="Stats" role="button" />
+
+                            <div class="post-extra-actions">
+                                <img src="./images/bookmark.svg" alt="Bookmark" role="button" />
+                                <img src="./images/share.svg" alt="Share" role="button" />
+                            </div>
+                        </footer>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+
+
+          <!-- Posts Container -->
+        <section id="feed-container" class="feed-section">
+            <div class="posts" aria-label="User posts">
+                <!-- Individual Post -->
+                <article class="post">
+                    <img class="post-avatar" src="./images/modi.png" alt="User avatar" />
+                    <div class="post-details">
+                        <header class="post-header">
+                            <h1>Narendra Modi</h1>
+                            <p>@GOV INDIA ·</p>
+                            <span>12s</span>
+                            <img src="./images/three_dots.svg" alt="More Info" />
+                        </header>
+
+                        <div class="post-body">
+                          <p>Sabka Sath Sabka Vikas</p>
+                            <span>#PrimeThoughts</span>
+                            <span>#NAMO</span>
+                        </div>
+
+                        <!-- Post Interactions -->
+                        <footer class="post-actions">
+                            <img src="./images/comment.svg" alt="Comment" role="button" />
+                            <img src="./images/retweet.svg" alt="Retweet" role="button" />
+                            <div class="interaction-like">
+                                <svg class="like-post" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" role="button">
+                                    <g>
+                                        <path fill="#808080" d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path>
+                                    </g>
+                                </svg>
+                                <span class="likes-count">0</span>
+                            </div>
+                            <img src="./images/stats.svg" alt="Stats" role="button" />
+
+                            <div class="post-extra-actions">
+                                <img src="./images/bookmark.svg" alt="Bookmark" role="button" />
+                                <img src="./images/share.svg" alt="Share" role="button" />
+                            </div>
+                        </footer>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+
+
+
+          <!-- Posts Container -->
+        <section id="feed-container" class="feed-section">
+            <div class="posts" aria-label="User posts">
+                <!-- Individual Post -->
+                <article class="post">
+                    <img class="post-avatar" src="./images/bean.png" alt="User avatar" />
+                    <div class="post-details">
+                        <header class="post-header">
+                             <h1>Mr. Bean</h1>
+                                <p>@BeanTalks ·</p>
+                                <span>25s</span>
+                            <img src="./images/three_dots.svg" alt="More Info" />
+                        </header>
+
+                        <div class="post-body">
+                           <p>Where is my teddy ? </p>
+                            <span>#Hollywood</span>
+                            <span>#Enjoying</span>
+                        </div>
+
+                        <!-- Post Interactions -->
+                        <footer class="post-actions">
+                            <img src="./images/comment.svg" alt="Comment" role="button" />
+                            <img src="./images/retweet.svg" alt="Retweet" role="button" />
+                            <div class="interaction-like">
+                                <svg class="like-post" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" role="button">
+                                    <g>
+                                        <path fill="#808080" d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path>
+                                    </g>
+                                </svg>
+                                <span class="likes-count">0</span>
+                            </div>
+                            <img src="./images/stats.svg" alt="Stats" role="button" />
+
+                            <div class="post-extra-actions">
+                                <img src="./images/bookmark.svg" alt="Bookmark" role="button" />
+                                <img src="./images/share.svg" alt="Share" role="button" />
+                            </div>
+                        </footer>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- JavaScript for handling interactions (if needed) -->
+    <script src="js/main.js"></script>
+</body>
+</html>
