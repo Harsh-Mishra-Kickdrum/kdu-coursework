@@ -1,0 +1,70 @@
+<!-- In this assessment, your objective is to create a real-time stock market application using -->
+<!-- HTML/SCSS frontend and integrate it with a Node.js backend server using sockets forlive -->
+<!-- updates. -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Application</title>
+    <script defer src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <script defer src="client/js/client.js"></script>
+    <link rel="stylesheet"  href= "css/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>KDU Stock Market Dashboard</h1>
+        </div>
+        <div class="main">
+            <!-- left container -->
+            <div class="left">
+                <div class="top" id="name_and_price">
+                    <div class="stock-name box" >
+                        <img src="zomato.jpg" alt="">
+                        <div>Zomato</div>
+                    </div>
+                    <div class="stock-price box"></div>
+                    <div class="enter-quantity box"></div>
+                    <div class="buy-button btn"></div>
+                    <div class="sell-button btn"></div>
+                </div>
+
+                <div class="bottom">
+                    <div class="graph">
+                        <!-- create bar graphs five dotted line as grid both -->
+                        <!-- horizontal and vertical for price in y axis and time in x axis-->
+                        <canvas id="graph">
+                            <ul class="chart">
+                                <!-- {#each dataPoints as point} -->
+                                <li style=`grid-column-end: span {stocks.randomCurrentPrice}`>
+                                    <!-- {stocks.randomCurrentPrice} -->
+                                    <span>{stocks.randomCurrentPrice}</span>
+                                </li>
+                                {/each}
+                            </ul>
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+              <!-- right container -->
+        <div class="right">
+            <div class="title">History</div>
+            <div class="history">
+                <div class="history-table" id="history"></div>
+                <!-- History will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+      
+    </div>
+
+
+    <script src="client/js/app.js"></script>
+</body>
+
+</html>
