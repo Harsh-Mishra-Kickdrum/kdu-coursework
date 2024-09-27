@@ -1,0 +1,51 @@
+// Add your styling here according to the design specs
+.quoteContainer {
+  background-color: #0c369e;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  margin-top:2em;
+  color: white;
+  font-weight: 900;
+  font-size: 25px;
+  
+
+.author{
+    justify-content : flex-end !important;
+    text-align: right !important;
+    font-weight: 550;
+    font-size: 18px;
+    margin-left: 430px;
+    margin-top: 10px;
+    display: flex;
+
+}
+
+.date{
+    justify-content: right !important;
+    text-align: right !important;
+    font-weight: 500;
+    font-size: 20px;
+    margin-left: 465px;
+    margin-top: 2px;
+    opacity: 0.6;
+    padding-top: 0;
+
+}
+
+  .tags {
+  display: flex;
+  gap: 10px;
+}
+
+.tagButton {
+  background-color: #ee99c2;
+  border: none;
+  border-radius: 15px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+}
+
+

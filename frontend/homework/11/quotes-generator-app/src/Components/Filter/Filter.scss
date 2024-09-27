@@ -1,0 +1,28 @@
+
+.filterContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filterTag {
+  background-color: #ee99c2;
+  border: none;
+  border-radius: 15px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+.filter-delete-btn{
+  background-color: #f70303;
+  border: none;
+  border-radius: 15px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 10px;
+  color: white;
+}

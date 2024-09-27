@@ -1,0 +1,22 @@
+
+.headerContainer {
+  background-color: white;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: flex-start;
+
+
+
+  .header-addQuote-btn {
+    background-color: #ffe3ca;
+    border: none;
+    color: #0c369e;
+    padding: 20px 20px;
+    cursor: pointer;
+    justify-content: left;
+    font-weight: bolder;
+    font-size: 26px;
+    
+  }
+}
